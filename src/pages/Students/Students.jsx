@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Students = () => {
   const [studentData, setStudentData] = useState(null);
-  const [viewStudent, setViewStudent] = useState(null); // State to track the student to view
+  const [viewStudent, setViewStudent] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,9 +25,9 @@ const Students = () => {
 
   const handleViewClick = (key) => {
     if (viewStudent === key) {
-      setViewStudent(null); // Hide details if clicked again
+      setViewStudent(null); 
     } else {
-      setViewStudent(key); // Show details for the selected student
+      setViewStudent(key); 
     }
   };
 
@@ -67,10 +67,10 @@ const Students = () => {
                   )}
                 </div>
 
-                <div className="flex gap-3 mt-4 justify-center">
+                <div className="flex gap-3 mt-4 justify-center flex-wrap">
                   <button
                     onClick={() => deleteData(key)}
-                    className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200"
+                    className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200 w-full sm:w-auto"
                   >
                     Delete
                   </button>
@@ -80,13 +80,13 @@ const Students = () => {
                         state: { key, studentData: value },
                       })
                     }
-                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
+                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 w-full sm:w-auto"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleViewClick(key)}
-                    className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200"
+                    className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200 w-full sm:w-auto"
                   >
                     {viewStudent === key ? 'Hide' : 'View'}
                   </button>

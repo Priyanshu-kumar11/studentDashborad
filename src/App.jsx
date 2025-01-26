@@ -7,25 +7,28 @@ import UpdateInfo from './modal/UpdateInfo';
 import LoginPage from './pages/Login/LoginPage';
 import SignUp from './componets/Auth/SignUp';
 import { getAuth } from 'firebase/auth';
-import Sidebar from './componets/Sidebar'; 
+import Sidebar from './componets/Sidebar';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
+  // Firebase Authentication Check
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user); 
+      setIsAuthenticated(!!user); // Set authentication state based on user presence
     });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe(); // Cleanup the subscription when component unmounts
   }, []);
 
+  // Toggle Sidebar visibility
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Protected Routes Configuration
   const myRouter = createBrowserRouter([
     {
       path: '/login',
@@ -36,7 +39,7 @@ function App() {
       element: <SignUp />,
     },
     {
-      path: '/',
+      path: '/studentList',
       element: isAuthenticated ? (
         <div className="flex flex-col md:flex-row">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -44,7 +47,9 @@ function App() {
             <Students />
           </div>
         </div>
-      ) : <Navigate to="/login" />,
+      ) : (
+        <Navigate to="/login" />
+      ),
     },
     {
       path: '/addStudent',
@@ -55,7 +60,9 @@ function App() {
             <StudentInfo />
           </div>
         </div>
-      ) : <Navigate to="/login" />,
+      ) : (
+        <Navigate to="/login" />
+      ),
     },
     {
       path: '/updateStudent',
@@ -66,18 +73,9 @@ function App() {
             <UpdateInfo />
           </div>
         </div>
-      ) : <Navigate to="/login" />,
-    },
-    {
-      path: '/studentList',
-      element: isAuthenticated ? (
-        <div className="flex flex-col md:flex-row">
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <div className={`flex-1 p-4 transition-all duration-300 ${isSidebarOpen ? 'ml-60' : 'ml-20'} md:ml-60`}>
-            <Students />
-          </div>
-        </div>
-      ) : <Navigate to="/login" />,
+      ) : (
+        <Navigate to="/login" />
+      ),
     },
   ]);
 
