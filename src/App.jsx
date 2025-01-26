@@ -31,6 +31,10 @@ function App() {
   // Protected Routes Configuration
   const myRouter = createBrowserRouter([
     {
+      path: '/',
+      element: <Navigate to="/login" />, // Redirect root to login or any valid route
+    },
+    {
       path: '/login',
       element: <LoginPage />,
     },
@@ -76,6 +80,11 @@ function App() {
       ) : (
         <Navigate to="/login" />
       ),
+    },
+    // Optional: catch-all route for undefined paths
+    {
+      path: '*',
+      element: <Navigate to="/login" />, // Or show a "Not Found" page
     },
   ]);
 
